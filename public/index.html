@@ -45,9 +45,7 @@
             });
             
             function emitAction(rawMessage) {
-                console.log('action ', rawMessage)
                 var possibleActions = [
-                    '/think​',
                     '/oops​',
                     '/fadelast​',
                     '/highlight​',
@@ -55,13 +53,15 @@
                 ]
                 var re = /(\/\S*)(.*)/g
                 var matches = re.exec(rawMessage)
-                console.log('result ', matches)
                 var action = matches[1]
-                console.log('action ', action)
                 switch (action) {
                     case '/nick':
-                    var nick = matches[2]
-                    socket.emit('change nick', nick)
+                        var nick = matches[2]
+                        socket.emit('change nick', nick)
+                        break;
+                    case '/think':
+                        var message = matches[2]
+                        socket.emit('think message', message)
                         break;
                     default:
                         console.log('that action isnt possible')
@@ -78,6 +78,10 @@
             })
             socket.on('nick', function(msg) {
                 $('.username').text(msg)
+            })
+            socket.on('think message', function(msg){
+                console.log('think message', msg)
+                $('#messages').append($("<li style='color:grey'>").text(msg));
             })
         });
     </script>

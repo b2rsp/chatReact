@@ -25,6 +25,10 @@ io.on('connection', function(socket){
         console.log('msg ', msg);
         socket.broadcast.emit('change nick', msg)
     });
+
+    socket.on('think message', function(msg) {
+        io.emit('think message', msg)
+    })
 });
 
 http.listen(3000, function(){

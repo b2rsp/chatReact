@@ -14,6 +14,10 @@
     </style>
   </head>
   <body>
+    <div>
+        <h1 class="username"></h1>
+        <h2>Talking to <span class="usernameTarget"></span></h2>
+    </div>
     <ul id="messages"></ul>
     <form action="">
       <input id="m" autocomplete="off" /><button>Send</button>
@@ -24,13 +28,57 @@
         $(function () {
             var socket = io();
             $('form').submit(function(){
-                socket.emit('chat message', $('#m').val());
+                var message = $('#m').val();
+                console.log('message ', message)
+                //trim the whitepasce
+                message = message.trim()
+                // check if it's action
+                if (message.startsWith('/')) {
+                    emitAction(message)
+                } else {
+                    // it's a simple message
+                    socket.emit('message', message)
+                }
+                //reset the input
                 $('#m').val('');
                 return false;
             });
-            socket.on('chat message', function(msg){
+            
+            function emitAction(rawMessage) {
+                console.log('action ', rawMessage)
+                var possibleActions = [
+                    '/think​',
+                    '/oops​',
+                    '/fadelast​',
+                    '/highlight​',
+                    '/countdown​'
+                ]
+                var re = /(\/\S*)(.*)/g
+                var matches = re.exec(rawMessage)
+                console.log('result ', matches)
+                var action = matches[1]
+                console.log('action ', action)
+                switch (action) {
+                    case '/nick':
+                    var nick = matches[2]
+                    socket.emit('change nick', nick)
+                        break;
+                    default:
+                        console.log('that action isnt possible')
+                        break;
+                }
+            }
+            // socket listeners
+            socket.on('message', function(msg){
                 $('#messages').append($('<li>').text(msg));
             });
+            socket.on('change nick', function(msg) {
+                console.log('changed nicjed, ',msg)
+                $('.usernameTarget').text(msg)
+            })
+            socket.on('nick', function(msg) {
+                $('.username').text(msg)
+            })
         });
     </script>
   </body>

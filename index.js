@@ -32,11 +32,15 @@ io.on('connection', function(socket){
     socket.on('removing message', function(msg){
         console.log('removing message')
         socket.broadcast.emit('removing message', msg)
-    })
+    });
 
     socket.on('fadelast​', function(msg) {
         io.emit('fadelast​')
-    })
+    });
+
+    socket.on('highlight​', function(msg){
+        io.emit('highlight​', msg)
+    });
 });
 
 http.listen(3000, function(){

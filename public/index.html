@@ -46,12 +46,6 @@
             });
             
             function emitAction(rawMessage) {
-                var possibleActions = [
-                    '/oops​',
-                    '/fadelast​',
-                    '/highlight​',
-                    '/countdown​'
-                ]
                 var re = /(\/\S*)(.*)/g
                 var matches = re.exec(rawMessage)
                 var action = matches[1]
@@ -71,6 +65,10 @@
                         break;
                     case '/fadelast​':
                         socket.emit('fadelast​')
+                        break;
+                    case '/highlight':
+                        var message = matches[2]
+                        socket.emit('highlight​', message)
                         break;
                     default:
                         console.log('that action isnt possible')
@@ -99,6 +97,10 @@
             socket.on('fadelast​', function(msg){
                 $('#messages li').last().css({opacity: 0.1})
             })
+            socket.on('highlight​', function(msg){
+                $('#messages').append($("<li style='font-size: 110%;filter: brightness(90%);'>").text(msg));
+            })
+            
         });
     </script>
   </body>

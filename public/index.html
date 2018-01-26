@@ -18,7 +18,7 @@
         <h1 class="username"></h1>
         <h2>Talking to <span class="usernameTarget"></span></h2>
     </div>
-    <ul id="messages"></ul>
+    <ul id="messages" style="width:500px"></ul>
     <form action="">
       <input id="m" autocomplete="off" /><button>Send</button>
     </form>
@@ -27,7 +27,8 @@
     <script>
         $(function () {
             var socket = io();
-            $('form').submit(function(){
+            $('form').submit(function(e){
+                e.preventDefault()
                 var message = $('#m').val();
                 console.log('message ', message)
                 //trim the whitepasce
@@ -38,10 +39,10 @@
                 } else {
                     // it's a simple message
                     socket.emit('message', message)
+                    $('#messages').append($("<li style=text-align:left class=sent>").text(message));
                 }
                 //reset the input
                 $('#m').val('');
-                return false;
             });
             
             function emitAction(rawMessage) {
@@ -63,6 +64,11 @@
                         var message = matches[2]
                         socket.emit('think message', message)
                         break;
+                    case '/oops':
+                        // removes the last message sent
+                        $('.sent:last-child').remove()
+                        socket.emit('removing message')
+                        break; 
                     default:
                         console.log('that action isnt possible')
                         break;
@@ -70,7 +76,7 @@
             }
             // socket listeners
             socket.on('message', function(msg){
-                $('#messages').append($('<li>').text(msg));
+                $('#messages').append($("<li style=text-align:right class=received>").text(msg));
             });
             socket.on('change nick', function(msg) {
                 console.log('changed nicjed, ',msg)
@@ -82,6 +88,10 @@
             socket.on('think message', function(msg){
                 console.log('think message', msg)
                 $('#messages').append($("<li style='color:grey'>").text(msg));
+            })
+            socket.on('removing message', function(msg){
+                console.log('removing message', msg),
+                $('.received:last-child').remove()
             })
         });
     </script>

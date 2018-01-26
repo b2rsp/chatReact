@@ -18,16 +18,20 @@ io.on('connection', function(socket){
     });
 
     socket.on('message', function(msg){
-        io.emit('message', msg);
+        socket.broadcast.emit('message', msg)
     });
 
     socket.on('change nick', function(msg) {
-        console.log('msg ', msg);
         socket.broadcast.emit('change nick', msg)
     });
 
     socket.on('think message', function(msg) {
         io.emit('think message', msg)
+    });
+
+    socket.on('removing message', function(msg){
+        console.log('removing message')
+        socket.broadcast.emit('removing message', msg)
     })
 });
 

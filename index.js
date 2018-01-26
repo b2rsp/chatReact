@@ -33,6 +33,10 @@ io.on('connection', function(socket){
         console.log('removing message')
         socket.broadcast.emit('removing message', msg)
     })
+
+    socket.on('fadelast​', function(msg) {
+        io.emit('fadelast​')
+    })
 });
 
 http.listen(3000, function(){

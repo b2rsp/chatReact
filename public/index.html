@@ -68,7 +68,10 @@
                         // removes the last message sent
                         $('.sent:last-child').remove()
                         socket.emit('removing message')
-                        break; 
+                        break;
+                    case '/fadelast​':
+                        socket.emit('fadelast​')
+                        break;
                     default:
                         console.log('that action isnt possible')
                         break;
@@ -92,6 +95,9 @@
             socket.on('removing message', function(msg){
                 console.log('removing message', msg),
                 $('.received:last-child').remove()
+            })
+            socket.on('fadelast​', function(msg){
+                $('#messages li').last().css({opacity: 0.1})
             })
         });
     </script>

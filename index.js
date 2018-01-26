@@ -44,6 +44,10 @@ io.on('connection', function(socket){
     
     socket.on('countdown​', function(data){
         socket.broadcast.emit('countdown​', data)
+    });
+
+    socket.on('typing', function(data) {
+        socket.broadcast.emit('typing')
     })
 });
 

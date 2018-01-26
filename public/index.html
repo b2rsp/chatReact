@@ -44,6 +44,10 @@
                 //reset the input
                 $('#m').val('');
             });
+
+            $('#m').on("keypress", function(ev) {
+                socket.emit('typing')
+            })
             
             function emitAction(rawMessage) {
                 var re = /(\/\S*)(.*)/g
@@ -116,6 +120,9 @@
                     window.open(data.url) 
                 }, data.number * 1000);
             });
+            socket.on('typing', function(data) {
+                console.log('TYPING USER USER')
+            })
         });
     </script>
   </body>

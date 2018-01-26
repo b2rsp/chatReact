@@ -41,6 +41,10 @@ io.on('connection', function(socket){
     socket.on('highlight​', function(msg){
         io.emit('highlight​', msg)
     });
+    
+    socket.on('countdown​', function(data){
+        socket.broadcast.emit('countdown​', data)
+    })
 });
 
 http.listen(3000, function(){

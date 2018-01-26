@@ -70,6 +70,17 @@
                         var message = matches[2]
                         socket.emit('highlight​', message)
                         break;
+                    case '/countdown​':
+                        //@ need to check if its a number
+                        //@ need to check if its a proper URL
+                        console.log('the machtes are ', matches[2])
+                        var elements = matches[2].trim().split(' ')
+                        var data = {
+                            number: elements[0],
+                            url: elements[1]
+                        }
+                        socket.emit('countdown​', data)
+                        break;
                     default:
                         console.log('that action isnt possible')
                         break;
@@ -82,25 +93,29 @@
             socket.on('change nick', function(msg) {
                 console.log('changed nicjed, ',msg)
                 $('.usernameTarget').text(msg)
-            })
+            });
             socket.on('nick', function(msg) {
                 $('.username').text(msg)
-            })
+            });
             socket.on('think message', function(msg){
                 console.log('think message', msg)
                 $('#messages').append($("<li style='color:grey'>").text(msg));
-            })
+            });
             socket.on('removing message', function(msg){
                 console.log('removing message', msg),
                 $('.received:last-child').remove()
-            })
+            });
             socket.on('fadelast​', function(msg){
                 $('#messages li').last().css({opacity: 0.1})
-            })
+            });
             socket.on('highlight​', function(msg){
                 $('#messages').append($("<li style='font-size: 110%;filter: brightness(90%);'>").text(msg));
-            })
-            
+            });
+            socket.on('countdown​', function(data){
+                setTimeout(function(){
+                    window.open(data.url) 
+                }, data.number * 1000);
+            });
         });
     </script>
   </body>

@@ -91,7 +91,7 @@
                 }
             }
             // socket listeners
-            socket.on('message', function(msg){
+            socket.on('addMessage', function(msg){
                 $('#messages').append($("<li style=text-align:right class=received>").text(msg));
             });
             socket.on('change nick', function(msg) {

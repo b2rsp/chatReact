@@ -2,6 +2,7 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+var port = 8089;
 app.get('/', function(req, res){
     res.sendFile(__dirname + '/public/index.html');
 });
@@ -17,8 +18,8 @@ io.on('connection', function(socket){
       userID--
     });
 
-    socket.on('message', function(msg){
-        socket.broadcast.emit('message', msg)
+    socket.on('ADD_MESSAGE', function(msg){
+        socket.broadcast.emit('ADD_MESSAGE', msg)
     });
 
     socket.on('change nick', function(msg) {
@@ -51,7 +52,7 @@ io.on('connection', function(socket){
     })
 });
 
-http.listen(3000, function(){
-  console.log('listening on *:3000');
+http.listen(port, function(){
+  console.log(`listening on *:${port}`);
 });
     

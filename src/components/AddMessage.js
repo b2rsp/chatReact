@@ -1,29 +1,27 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+class AddMessage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: ''};
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleChange(e) {
+    this.setState({value: e.target.value});
+  }
 
-const AddMessage = (props) => {
-  let input
-
-  return (
-    <section id="new-message">
-      <input
-        onKeyPress={(e) => {
-        if (e.key === 'Enter') {
-          props.dispatch(input.value, 'Me')
-          input.value = ''
-        }
-      }}
-        type="text"
-        ref={(node) => {
-        input = node
-      }}
-      />
-    </section>
-  )
-}
-
-AddMessage.propTypes = {
-  dispatch: PropTypes.func.isRequired
-}
+  handleSubmit(e) {
+    e.preventDefault()
+    console.log('the message is ', this.state.value)
+  }
+  render() { 
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <input type="text" value={this.state.value} onChange={this.handleChange} />
+      </form>
+    )
+  }
+}  
 
 export default AddMessage

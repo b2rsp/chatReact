@@ -7,44 +7,50 @@ import AddMessage from './components/AddMessage';
 class App extends React.Component {
   constructor(props) {
     super(props)
-    this.setState({
-      messages: []
-    })
   }
   state = {
-    messages: []
+    messages: [],
+    inputValue: '',
+    lastMessageID: 0
   }
   
   handleSubmit (e){
     e.preventDefault()
     let messages = this.state.messages
+    
     messages.push({
-      id: 3,
-      message: 'daa',
+      id: this.state.lastMessageID,
+      message: this.state.inputValue,
       sent: true,
       meta: {}
     }) 
+    var nextID = this.state.lastMessageID + 1;
     this.setState({
-      messages
+      messages,
+      lastMessageID: nextID,
+      inputValue: ''
       })
+  }
+
+  handleOnchange(e) {
+    console.log('e', e.target.value)
+    this.setState({
+      inputValue: e.target.value,
+    });
   }
   componentDidMount() {
     // this set state from ajax calls or localstorage
-    this.setState({
-      messages: [,
-    {
-      id: 2,
-      message: 'zzzz',
-      sent: true,
-      meta: {}
-    }]
-    })
+    
   }
+
   render() {
   return (<div id="container">
     <section id="main">
       <MessagesList messages={this.state.messages}/>
-      <AddMessage handleSubmit={this.handleSubmit.bind(this)}/>
+      <AddMessage 
+        handleSubmit={this.handleSubmit.bind(this)} 
+        inputValue={this.state.inputValue} 
+        handleOnchange={this.handleOnchange.bind(this)}/>
     </section>
   </div>
   )}

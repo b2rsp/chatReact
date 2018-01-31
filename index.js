@@ -19,7 +19,6 @@ io.on('connection', function(socket){
     });
 
     socket.on('ADD_MESSAGE', function(msg){
-        console.log('ADDNESSAGE')
         let data = {
             message: msg,
             sent: false
@@ -27,8 +26,8 @@ io.on('connection', function(socket){
         socket.broadcast.emit('ADD_MESSAGE', data)
     });
 
-    socket.on('change nick', function(msg) {
-        socket.broadcast.emit('change nick', msg)
+    socket.on('CHANGE_NICK', function(nick) {
+        socket.broadcast.emit('CHANGE_NICK', nick)
     });
 
     socket.on('think message', function(msg) {

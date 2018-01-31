@@ -165,21 +165,21 @@ class App extends React.Component {
   
   render() {
     return (<div className="container">
-      <div>
+      <div className="header">
         {this.state.talkingTo != '' ? `Talking to ${this.state.talkingTo}` : ''}
       </div>
-      <section className="main">
+      <div className="main">
         <MessagesList messages={this.state.messages}/>
         <AddMessage 
           handleSubmit={this.handleSubmit.bind(this)} 
           inputValue={this.state.inputValue} 
           handleOnchange={this.handleOnchange.bind(this)}/>
-      </section>
-      <section className='logHandling'>
+      </div>
+      <div className='logHandling'>
         <div>
           {this.state.log}
         </div>
-      </section>
+      </div>
     </div>
   )}
 }

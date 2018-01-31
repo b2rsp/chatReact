@@ -43,8 +43,8 @@ io.on('connection', function(socket){
         io.emit('REMOVE_LAST_MESSAGE');
     });
 
-    socket.on('fadelast​', function(msg) {
-        io.emit('fadelast​')
+    socket.on('FADELAST', function(msg) {
+        io.emit('FADELAST')
     });
 
     socket.on('highlight​', function(msg){

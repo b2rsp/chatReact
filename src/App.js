@@ -5,6 +5,7 @@ import MessagesList from './components/MessagesList';
 import AddMessage from './components/AddMessage';
 import socketIOClient from "socket.io-client";
 import * as types from './constants/ActionTypes';
+import { FADELAST } from './constants/ActionTypes';
 
 const socket = socketIOClient('http://localhost:8089');
 class App extends React.Component {
@@ -68,14 +69,14 @@ class App extends React.Component {
       case '/oops':
         socket.emit(types.REMOVE_LAST_MESSAGE)
         break;
-        /*
-      case '/fadelast​':
-          socket.emit('fadelast​')
-          break;
+      case '/fadelast':
+        socket.emit(types.FADELAST)
+        break;
       case '/highlight':
-          var message = matches[2]
-          socket.emit('highlight​', message)
-          break;
+        var message = matches[2]
+        socket.emit('highlight​', message)
+        break;
+      /*  
       case '/countdown​':
           //@ need to check if its a number
           //@ need to check if its a proper URL
@@ -128,6 +129,17 @@ class App extends React.Component {
       let messagesLastRemoved = this.state.messages.splice(-1,1)
       this.setState({
         messages: messagesLastRemoved
+      })
+    }.bind(this))
+    socket.on(types.FADELAST, function(){
+      let messages = this.state.messages
+      let lastMessage = messages[messages.length-1]
+      console.log('lastmessage,', lastMessage)
+      lastMessage.meta.push('fade-message')
+      console.log('after', lastMessage)
+      messages[messages.length-1] = lastMessage
+      this.setState({
+        messages
       })
     }.bind(this))
   }

@@ -55,3 +55,8 @@ ul li{
 .think {
   color: darkgrey;
 }
+
+.fade-message {
+  opacity: 0.1;
+  transition: opacity 1s linear;
+}

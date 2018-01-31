@@ -4,7 +4,7 @@ import Message from './Message'
 
 const MessagesList = ({ messages }) => (
   <section id="messages-list">
-    <ul>
+    <ul className='cf'>
       {messages.map(message => (
         <Message
           key={message.id}

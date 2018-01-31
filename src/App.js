@@ -26,6 +26,7 @@ class App extends React.Component {
     e.preventDefault()
     let messages = this.state.messages;
     let msgContent = this.state.inputValue;
+    // check if the message is action or not
     messages.push({
       id: this.state.lastMessageID,
       message: msgContent,
@@ -49,11 +50,7 @@ class App extends React.Component {
   }
   componentDidMount() {
     // this set state from ajax calls or localstorage
-  }
-
-  setupListeners() {
     socket.on(types.ADD_MESSAGE, function(data){
-      console.log('messageReceiveed ',data)
       let messages = this.state.messages;
       messages.push({
         id: this.state.lastMessageID,
@@ -69,10 +66,8 @@ class App extends React.Component {
       }) 
     }.bind(this))
   }
-
+  
   render() {
-    console.log('render')
-    this.setupListeners()
     return (<div id="container">
       <section id="main">
         <MessagesList messages={this.state.messages}/>

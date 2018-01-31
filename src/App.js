@@ -54,23 +54,21 @@ class App extends React.Component {
     const action = matches[1]
     switch (action) {
       case '/nick':
-          let nick = matches[2]
-          this.setState({
-            nick: nick
-          })
-          socket.emit(types.CHANGE_NICK, nick)
-          break;
+        let nick = matches[2]
+        this.setState({
+          nick: nick
+        })
+        socket.emit(types.CHANGE_NICK, nick)
+        break;
       case '/think':
-          let message = matches[2]
-          this.addChatMessage(message, true, ['think'])
-          socket.emit(types.THINK, message)
-          break;
+        let message = matches[2]
+        this.addChatMessage(message, true, ['think'])
+        socket.emit(types.THINK, message)
+        break;
       case '/oops':
-          break;
-          /*          
-          $('.sent:last-child').remove()
-          socket.emit('removing message')
-          break;
+        socket.emit(types.REMOVE_LAST_MESSAGE)
+        break;
+        /*
       case '/fadelast​':
           socket.emit('fadelast​')
           break;
@@ -125,6 +123,12 @@ class App extends React.Component {
     }.bind(this))
     socket.on(types.THINK, function(data){
       this.addChatMessage(data.message, data.sent, data.meta)
+    }.bind(this))
+    socket.on(types.REMOVE_LAST_MESSAGE, function() {
+      let messagesLastRemoved = this.state.messages.splice(-1,1)
+      this.setState({
+        messages: messagesLastRemoved
+      })
     }.bind(this))
   }
   

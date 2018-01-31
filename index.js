@@ -35,13 +35,12 @@ io.on('connection', function(socket){
             message: msg,
             sent: false,
             meta: ['think']
-        }
-        socket.broadcast.emit('THINK', data)
+        };
+        socket.broadcast.emit('THINK', data);
     });
 
-    socket.on('removing message', function(msg){
-        console.log('removing message')
-        socket.broadcast.emit('removing message', msg)
+    socket.on('REMOVE_LAST_MESSAGE', function(msg){
+        io.emit('REMOVE_LAST_MESSAGE');
     });
 
     socket.on('fadelast​', function(msg) {

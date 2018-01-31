@@ -46,7 +46,7 @@ class App extends React.Component {
     this.setState({
       messages
     })
-    
+    this.saveLocalCollection()
   }
 
   handleChatAction(rawMessage) {
@@ -112,8 +112,24 @@ class App extends React.Component {
       inputValue: e.target.value,
     });
   }
+
+  loadLocalCollection() {
+    if(localStorage.getItem('chatMessages')) {
+      this.setState({
+        messages: JSON.parse(localStorage.getItem('chatMessages'))
+      })
+    }
+  }
+
+  saveLocalCollection() {
+    let messages = this.state.messages.slice(-10)
+    localStorage.setItem('chatMessages', JSON.stringify(messages))
+  }
+
   componentDidMount() {
-    // this set state from ajax calls or localstorage
+    // setup the localstorage
+    this.loadLocalCollection()
+    // setup the sockets
     socket.on(types.ADD_MESSAGE, function (data){
       this.addChatMessage(data.message, data.sent)
     }.bind(this))
@@ -134,9 +150,7 @@ class App extends React.Component {
     socket.on(types.FADELAST, function(){
       let messages = this.state.messages
       let lastMessage = messages[messages.length-1]
-      console.log('lastmessage,', lastMessage)
       lastMessage.meta.push('fade-message')
-      console.log('after', lastMessage)
       messages[messages.length-1] = lastMessage
       this.setState({
         messages

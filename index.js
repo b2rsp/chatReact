@@ -47,8 +47,13 @@ io.on('connection', function(socket){
         io.emit('FADELAST')
     });
 
-    socket.on('highlight​', function(msg){
-        io.emit('highlight​', msg)
+    socket.on('HIGHLIGHT', function(msg){
+        let data = {
+            message: msg,
+            sent: false,
+            meta: ['highlight']
+        }
+        socket.broadcast.emit('HIGHLIGHT', data)
     });
     
     socket.on('countdown​', function(data){

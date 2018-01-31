@@ -52,6 +52,7 @@ class App extends React.Component {
   handleChatAction(rawMessage) {
     const re = /(\/\S*)(.*)/g
     const matches = re.exec(rawMessage)
+    let message = matches[2]
     const action = matches[1]
     switch (action) {
       case '/nick':
@@ -62,19 +63,18 @@ class App extends React.Component {
         socket.emit(types.CHANGE_NICK, nick)
         break;
       case '/think':
-        let message = matches[2]
         this.addChatMessage(message, true, ['think'])
         socket.emit(types.THINK, message)
         break;
       case '/oops':
-        socket.emit(types.REMOVE_LAST_MESSAGE)
+        socket.emit(types.REMOVE_LAST_MESSAGE);
         break;
       case '/fadelast':
-        socket.emit(types.FADELAST)
+        socket.emit(types.FADELAST);
         break;
       case '/highlight':
-        var message = matches[2]
-        socket.emit('highlight​', message)
+        this.addChatMessage(message, true, ['highlight']);
+        socket.emit(types.HIGHLIGHT, message);
         break;
       /*  
       case '/countdown​':
@@ -141,6 +141,9 @@ class App extends React.Component {
       this.setState({
         messages
       })
+    }.bind(this))
+    socket.on(types.HIGHLIGHT, function(data){
+      this.addChatMessage(data.message, data.sent, data.meta)
     }.bind(this))
   }
   

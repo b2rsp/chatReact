@@ -60,3 +60,8 @@ ul li{
   opacity: 0.1;
   transition: opacity 1s linear;
 }
+
+.highlight {
+  font-size: 110%;
+  filter: brightness(90%);
+}

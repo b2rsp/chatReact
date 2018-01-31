@@ -27,28 +27,31 @@ ul li{
     border-radius: 30px;
     margin-bottom: 2px;
     font-family: Helvetica, Arial, sans-serif;
-  }
+}
   
-  .him{
-    background: #eee;
-    float: right;
-  }
-  
-  .me{
-    float: left;
-    background: #1d9e0c;
-    color: #fff;
-  }
-  
-  .him + .me{
-    border-bottom-right-radius: 5px;
-  }
-  
-  .me + .me{
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-  }
-  
-  .me:last-of-type {
-    border-bottom-right-radius: 30px;
-  }
+.him{
+  background: #eee;
+  float: right;
+}
+
+.me{
+  float: left;
+  background: #1d9e0c;
+}
+
+.him + .me{
+  border-bottom-right-radius: 5px;
+}
+
+.me + .me{
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.me:last-of-type {
+  border-bottom-right-radius: 30px;
+}
+
+.think {
+  color: darkgrey;
+}

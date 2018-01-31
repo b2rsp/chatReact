@@ -30,8 +30,13 @@ io.on('connection', function(socket){
         socket.broadcast.emit('CHANGE_NICK', nick)
     });
 
-    socket.on('think message', function(msg) {
-        io.emit('think message', msg)
+    socket.on('THINK', function(msg) {
+        let data = {
+            message: msg,
+            sent: false,
+            meta: ['think']
+        }
+        socket.broadcast.emit('THINK', data)
     });
 
     socket.on('removing message', function(msg){

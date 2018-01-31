@@ -15,7 +15,6 @@ class App extends React.Component {
   state = {
     messages: [],
     inputValue: '',
-    lastMessageID: 0,
     log: '',
     nick: '',
     talkingTo: ''
@@ -23,27 +22,30 @@ class App extends React.Component {
     
   handleSubmit (e){
     e.preventDefault()
-    let messages = this.state.messages;
     let msgContent = this.state.inputValue;
     // check if the message is action or not
     msgContent = msgContent.trim()
     if (msgContent.startsWith('/')) {
       this.handleChatAction(msgContent)
     } else {
-      messages.push({
-        id: this.state.lastMessageID,
-        message: msgContent,
-        sent: true,
-        meta: {}
-      }); 
-      var nextID = this.state.lastMessageID + 1;
-      this.setState({
-        messages,
-        lastMessageID: nextID,
-      })
-      socket.emit(types.ADD_MESSAGE, msgContent)
+      this.addChatMessage(msgContent, true)
+      socket.emit(types.ADD_MESSAGE, msgContent) 
     }
     this.clearInput();
+  }
+
+  addChatMessage (message, sent, meta = []) {
+    let messages = this.state.messages;
+    sent ? meta.push('me') : meta.push('him');
+    messages.push({
+      id: (new Date).getTime(),
+      message,
+      meta
+    });
+    this.setState({
+      messages
+    })
+    
   }
 
   handleChatAction(rawMessage) {
@@ -59,13 +61,12 @@ class App extends React.Component {
           socket.emit(types.CHANGE_NICK, nick)
           break;
       case '/think':
-          console.log('thimnk action ')
-          /*
-          var message = matches[2]
-          socket.emit('think message', message)
-          */
+          let message = matches[2]
+          this.addChatMessage(message, true, ['think'])
+          socket.emit(types.THINK, message)
           break;
       case '/oops':
+          break;
           /*          
           $('.sent:last-child').remove()
           socket.emit('removing message')
@@ -115,24 +116,15 @@ class App extends React.Component {
   componentDidMount() {
     // this set state from ajax calls or localstorage
     socket.on(types.ADD_MESSAGE, function (data){
-      let messages = this.state.messages;
-      messages.push({
-        id: this.state.lastMessageID,
-        message: data.message,
-        sent: data.sent,
-        meta: {}
-      });
-      var nextID = this.state.lastMessageID + 1;
-      this.setState({
-        messages,
-        lastMessageID: nextID,
-        log:'hello'
-      }) 
+      this.addChatMessage(data.message, data.sent)
     }.bind(this))
     socket.on(types.CHANGE_NICK, function(nick) {
       this.setState({
         talkingTo: nick
       })
+    }.bind(this))
+    socket.on(types.THINK, function(data){
+      this.addChatMessage(data.message, data.sent, data.meta)
     }.bind(this))
   }
   

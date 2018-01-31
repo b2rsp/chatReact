@@ -134,6 +134,8 @@ class App extends React.Component {
       this.addChatMessage(data.message, data.sent)
     }.bind(this))
     socket.on(types.CHANGE_NICK, function(nick) {
+      // not completely sure if the it's the page title or just to add a vid on top of the chat , i will do both
+      document.title = `Talking to ${nick}`
       this.setState({
         talkingTo: nick
       })
@@ -162,11 +164,10 @@ class App extends React.Component {
   }
   
   render() {
-    return (<div id="container">
-      <section className='sidebar'>
-        <div>My nick: {this.state.nick}</div>
-        <div>Talking to: {this.state.talkingTo}</div>
-      </section>
+    return (<div className="container">
+      <div>
+        {this.state.talkingTo != '' ? `Talking to ${this.state.talkingTo}` : ''}
+      </div>
       <section className="main">
         <MessagesList messages={this.state.messages}/>
         <AddMessage 

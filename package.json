@@ -6,7 +6,8 @@
   "scripts": {
     "test": "react-scripts test --env=jsdom",
     "server": "nodemon index.js",
-    "start": "react-scripts start",
+    "dev": "react-scripts start",
+    "start": "npm run server & npm run dev",
     "build": "react-scripts build",
     "eject": "react-scripts eject"
   },

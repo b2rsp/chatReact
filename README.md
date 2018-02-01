@@ -1,3 +1,17 @@
+# Running in development
+If running in UNIX env then we can simple run the command
+```
+npm run start
+```
+
+This will launch a server on `localhost:8089` and also the chat app on `localhost:3000`.
+Otherwise just run the 2 commands separately
+
+```
+npm run server
+npm run dev
+```
+
 # TODO
 
 - [X] Change nick feature

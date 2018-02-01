@@ -72,20 +72,17 @@ class App extends React.Component {
       case '/highlight':
         this.addChatMessage(message, true, ['highlight']);
         socket.emit(types.HIGHLIGHT, message);
-        break;
-      /*  
-      case '/countdown​':
-          //@ need to check if its a number
-          //@ need to check if its a proper URL
-          console.log('the machtes are ', matches[2])
+        break; 
+      case '/countdown':
+          //@TODO need to check if its a number
+          //@TODO need to check if its a proper URL
           var elements = matches[2].trim().split(' ')
           var data = {
               number: elements[0],
               url: elements[1]
           }
-          socket.emit('countdown​', data)
+          socket.emit(types.COUNTDOWN, data)
           break;
-          */
       default:
           this.logMessage('That action isnt possible')
           break;
@@ -161,6 +158,11 @@ class App extends React.Component {
     }.bind(this))
     socket.on(types.HIGHLIGHT, function(data){
       this.addChatMessage(data.message, data.sent, data.meta)
+    }.bind(this))
+    socket.on(types.COUNTDOWN, function(data){
+      setTimeout(function(){
+          window.open(data.url) 
+      }, data.number * 1000);
     }.bind(this))
   }
   

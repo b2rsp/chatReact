@@ -56,12 +56,12 @@ io.on('connection', function(socket){
         socket.broadcast.emit('HIGHLIGHT', data)
     });
     
-    socket.on('countdown​', function(data){
-        socket.broadcast.emit('countdown​', data)
+    socket.on('COUNTDOWN', function(data){
+        socket.broadcast.emit('COUNTDOWN', data)
     });
-
-    socket.on('typing', function(data) {
-        socket.broadcast.emit('typing')
+    
+    socket.on('TYPING', function(data) {
+        socket.broadcast.emit('TYPING')
     })
 });
 

@@ -20,6 +20,7 @@ class App extends React.Component {
   handleSubmit (e){
     e.preventDefault()
     let msgContent = this.state.inputValue;
+    if (msgContent == '') return
     // check if the message is action or not
     msgContent = msgContent.trim()
     if (msgContent.startsWith('/')) {

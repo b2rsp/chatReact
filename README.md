@@ -21,7 +21,7 @@ npm run dev
 - [X] Fadelast feature
 - [X] Highlight feature  
 - [ ] Typing feature
-- [ ] Smile and wink
+- [X] Smile and wink
 - [ ] Slide up and down the messages
 - [X] Countdown feature
 - [ ] Improve the style of the inbox

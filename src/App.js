@@ -21,8 +21,8 @@ class App extends React.Component {
     e.preventDefault()
     let msgContent = this.state.inputValue;
     if (msgContent == '') return
-    // check if the message is action or not
     msgContent = msgContent.trim()
+    // check if there is action to happen for the message
     if (msgContent.startsWith('/')) {
       this.handleChatAction(msgContent)
     } else {
@@ -35,6 +35,7 @@ class App extends React.Component {
   addChatMessage (message, sent, meta = []) {
     let messages = this.state.messages;
     sent ? meta.push('me') : meta.push('him');
+    message = this.addEmoticon(message);
     messages.push({
       id: new Date().getTime(),
       message,
@@ -44,6 +45,11 @@ class App extends React.Component {
       messages
     })
     this.saveLocalCollection()
+  }
+
+  addEmoticon(oldMessage) {
+    //@TODO this need to improved and use the html entity for the wink (&#x1F609;) and smile (&#x1F600;)
+    return oldMessage.replace('(smile)', '😀').replace('(wink)', '😉')
   }
 
   handleChatAction(rawMessage) {

@@ -5,13 +5,9 @@ import MessagesList from './components/MessagesList';
 import AddMessage from './components/AddMessage';
 import socketIOClient from "socket.io-client";
 import * as types from './constants/ActionTypes';
-import { FADELAST } from './constants/ActionTypes';
 
 const socket = socketIOClient('http://localhost:8089');
 class App extends React.Component {
-  constructor(props) {
-    super(props)
-  }
  
   state = {
     messages: [],
@@ -39,7 +35,7 @@ class App extends React.Component {
     let messages = this.state.messages;
     sent ? meta.push('me') : meta.push('him');
     messages.push({
-      id: (new Date).getTime(),
+      id: new Date().getTime(),
       message,
       meta
     });
@@ -122,6 +118,7 @@ class App extends React.Component {
   }
 
   saveLocalCollection() {
+    // only store the last 10, it should be on configuration the number
     let messages = this.state.messages.slice(-10)
     localStorage.setItem('chatMessages', JSON.stringify(messages))
   }
@@ -144,10 +141,13 @@ class App extends React.Component {
       this.addChatMessage(data.message, data.sent, data.meta)
     }.bind(this))
     socket.on(types.REMOVE_LAST_MESSAGE, function() {
-      let messagesLastRemoved = this.state.messages.splice(-1,1)
+      let messagesCollection = this.state.messages
+      //remove last element
+      messagesCollection.splice(-1,1)
       this.setState({
-        messages: messagesLastRemoved
+        messages: messagesCollection
       })
+      this.saveLocalCollection()
     }.bind(this))
     socket.on(types.FADELAST, function(){
       let messages = this.state.messages
@@ -166,7 +166,7 @@ class App extends React.Component {
   render() {
     return (<div className="container">
       <div className="header">
-        {this.state.talkingTo != '' ? `Talking to ${this.state.talkingTo}` : ''}
+        {this.state.talkingTo !== '' ? `Talking to ${this.state.talkingTo}` : ''}
       </div>
       <div className="main">
         <MessagesList messages={this.state.messages}/>

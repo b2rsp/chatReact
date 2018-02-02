@@ -7,8 +7,8 @@ class AddMessage extends React.Component {
   
   render() { 
     return (
-      <form onSubmit={this.props.handleSubmit}>
-        <input type="text" value={this.props.inputValue} onChange={this.props.handleOnchange}/>
+      <form className='textarea' onSubmit={this.props.handleSubmit}>
+        <input type="text" value={this.props.inputValue} onChange={this.props.handleOnchange} placeholder='Type here...'/>
       </form>
     )
   }

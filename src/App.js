@@ -5,6 +5,7 @@ import MessagesList from './components/MessagesList';
 import AddMessage from './components/AddMessage';
 import socketIOClient from "socket.io-client";
 import * as types from './constants/ActionTypes';
+import * as ReactDOM from 'react-dom';
 
 const socket = socketIOClient('http://localhost:8089');
 class App extends React.Component {
@@ -43,8 +44,8 @@ class App extends React.Component {
     });
     this.setState({
       messages
-    })
-    this.saveLocalCollection()
+    });
+    this.saveLocalCollection();
   }
 
   addEmoticon(oldMessage) {
@@ -177,9 +178,9 @@ class App extends React.Component {
       <div className="header">
         {this.state.talkingTo !== '' ? `Talking to ${this.state.talkingTo}` : ''}
       </div>
-      <div className="main">
-        <MessagesList messages={this.state.messages}/>
-        <AddMessage 
+      <div className="main" >
+        <MessagesList messages={this.state.messages} ref='messageList'/>
+        <AddMessage
           handleSubmit={this.handleSubmit.bind(this)} 
           inputValue={this.state.inputValue} 
           handleOnchange={this.handleOnchange.bind(this)}/>
@@ -192,4 +193,5 @@ class App extends React.Component {
     </div>
   )}
 }
+
 export default App

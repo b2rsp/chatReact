@@ -26,7 +26,7 @@ npm run dev
 - [X] Countdown feature
 - [ ] Improve the style of the inbox
 - [ ] Split the header into a proper component
-- [ ] Add proptype
+- [ ] Add proptypes
 - [ ] Refactor with Redux and Redux Saga
 - [ ] Format the code with Airbnb eslint style
 - [ ] Add proper validation of the action params

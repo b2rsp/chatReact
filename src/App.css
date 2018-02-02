@@ -76,6 +76,25 @@ ul {
   border-color: #1d9e0c;
 }
 
+.textarea {
+  width: 800px;
+  z-index: 99;
+  margin-top: 15px;
+}
+
+.textarea input {
+  position: fixed;
+  bottom: 0px;
+  width: inherit;
+  min-height: 35px;
+  z-index: 99;
+}
+
+.dummy-message-end {
+  float: left;
+  clear: both;  
+}
+
 .think {
   color: darkgrey;
 }

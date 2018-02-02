@@ -3,6 +3,7 @@ import React from 'react';
 import './App.css';
 import MessagesList from './components/MessagesList';
 import AddMessage from './components/AddMessage';
+import Header from './components/Header';
 import socketIOClient from "socket.io-client";
 import * as types from './constants/ActionTypes';
 import * as ReactDOM from 'react-dom';
@@ -168,14 +169,18 @@ class App extends React.Component {
   
   render() {
     return (<div className="container">
-      <div className="header">
-        {this.state.talkingTo !== '' ? `Talking to ${this.state.talkingTo}` : ''}
-      </div>
-      <MessagesList messages={this.state.messages} ref='messageList'/>
+      <Header 
+        talkingTo={this.state.talkingTo}
+      />
+      <MessagesList 
+        messages={this.state.messages} 
+        ref='messageList'
+      />
       <AddMessage
         handleSubmit={this.handleSubmit.bind(this)} 
         inputValue={this.state.inputValue} 
-        handleOnchange={this.handleOnchange.bind(this)}/>
+        handleOnchange={this.handleOnchange.bind(this)}
+      />
     </div>
   )}
 }

@@ -9,15 +9,6 @@ app.get('/', function(req, res){
 
 var userID = 0
 io.on('connection', function(socket){
-    console.log('a user connected');
-    userID++
-    var username = 'Username' + userID
-    socket.emit('nick', username)
-    socket.on('disconnect', function(){
-      console.log('user disconnected');
-      userID--
-    });
-
     socket.on('ADD_MESSAGE', function(msg){
         let data = {
             message: msg,

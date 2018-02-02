@@ -2,10 +2,10 @@
   "name": "chat-react-learning",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "react-scripts test --env=jsdom",
-    "server": "nodemon index.js",
+    "server": "nodemon server.js",
     "dev": "react-scripts start",
     "start": "npm run server & npm run dev",
     "build": "react-scripts build",

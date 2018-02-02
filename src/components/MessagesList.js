@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Message from './Message'
 
 class MessagesList extends React.Component {
+  
   constructor(props){
     super(props)
   }
@@ -38,5 +39,9 @@ class MessagesList extends React.Component {
     )
   }
 }
+
+MessagesList.propTypes = {
+  messages: PropTypes.array
+};
 
 export default MessagesList

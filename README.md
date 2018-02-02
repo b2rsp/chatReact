@@ -27,7 +27,7 @@ npm run dev
 - [X] Improve the style of the inbox
 - [ ] Inform user when entering invalid action
 - [X] Split the header into a proper component
-- [ ] Add proptypes
+- [X] Add proptypes
 - [ ] Refactor with Mobx / Redux+ReduxSaga
 - [ ] Format the code with Airbnb eslint style
 - [ ] Add proper validation of the action params

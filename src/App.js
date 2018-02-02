@@ -9,6 +9,7 @@ import * as types from './constants/ActionTypes';
 import * as ReactDOM from 'react-dom';
 
 const socket = socketIOClient('http://localhost:8089');
+
 class App extends React.Component {
  
   state = {

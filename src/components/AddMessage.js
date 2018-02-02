@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+
 class AddMessage extends React.Component {
+  
   constructor(props) {
     super(props);
   }
@@ -12,6 +14,12 @@ class AddMessage extends React.Component {
       </form>
     )
   }
-}  
+}
+
+AddMessage.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  handleOnchange: PropTypes.func.isRequired,
+  inputValue: PropTypes.string
+}
 
 export default AddMessage

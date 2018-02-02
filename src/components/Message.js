@@ -8,4 +8,10 @@ const Message = ({ message, meta }) => (
     {message}
   </li>
 )
+
+Message.propTypes = {
+  message: PropTypes.string,
+  meta: PropTypes.object
+};
+
 export default Message

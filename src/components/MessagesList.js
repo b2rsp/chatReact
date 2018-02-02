@@ -7,13 +7,21 @@ class MessagesList extends React.Component {
     super(props)
   }
 
+  componentDidMount() {
+    this.scrollToBotton();
+  }
+  
   componentDidUpdate() {
+    this.scrollToBotton();
+  }
+
+  scrollToBotton() {
     this.messagesEnd.scrollIntoView({ behavior: "smooth" });
   }
 
   render() {
     return (
-      <section id="messages-list">
+      <div className="messages-list">
         <ul className='cf'>
           {this.props.messages.map(message => (
             <Message
@@ -26,7 +34,7 @@ class MessagesList extends React.Component {
            ref={(el) => { this.messagesEnd = el; }}>
           &nbsp;
         </div>
-      </section>
+      </div>
     )
   }
 }

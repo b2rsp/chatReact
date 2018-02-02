@@ -13,7 +13,6 @@ class App extends React.Component {
   state = {
     messages: [],
     inputValue: '',
-    log: '',
     nick: '',
     talkingTo: ''
   }
@@ -91,15 +90,9 @@ class App extends React.Component {
           socket.emit(types.COUNTDOWN, data)
           break;
       default:
-          this.logMessage('That action isnt possible')
+         //@TODO inform user that this action isnt possible
           break;
     }
-  }
-  
-  logMessage(log) {
-    this.setState({
-      log
-    })
   }
 
   clearInput() {
@@ -183,11 +176,6 @@ class App extends React.Component {
         handleSubmit={this.handleSubmit.bind(this)} 
         inputValue={this.state.inputValue} 
         handleOnchange={this.handleOnchange.bind(this)}/>
-      <div className='logHandling'>
-        <div>
-          {this.state.log}
-        </div>
-      </div>
     </div>
   )}
 }

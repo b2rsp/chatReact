@@ -24,7 +24,8 @@ npm run dev
 - [X] Smile and wink
 - [ ] Slide up and down the messages
 - [X] Countdown feature
-- [ ] Improve the style of the inbox
+- [X] Improve the style of the inbox
+- [ ] Inform user when entering invalid action
 - [ ] Split the header into a proper component
 - [ ] Add proptypes
 - [ ] Refactor with Redux and Redux Saga

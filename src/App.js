@@ -83,8 +83,8 @@ class App extends React.Component {
       case '/countdown':
           //@TODO need to check if its a number
           //@TODO need to check if its a proper URL
-          var elements = matches[2].trim().split(' ')
-          var data = {
+          let elements = matches[2].trim().split(' ')
+          let data = {
               number: elements[0],
               url: elements[1]
           }
@@ -178,13 +178,11 @@ class App extends React.Component {
       <div className="header">
         {this.state.talkingTo !== '' ? `Talking to ${this.state.talkingTo}` : ''}
       </div>
-      <div className="main" >
-        <MessagesList messages={this.state.messages} ref='messageList'/>
-        <AddMessage
-          handleSubmit={this.handleSubmit.bind(this)} 
-          inputValue={this.state.inputValue} 
-          handleOnchange={this.handleOnchange.bind(this)}/>
-      </div>
+      <MessagesList messages={this.state.messages} ref='messageList'/>
+      <AddMessage
+        handleSubmit={this.handleSubmit.bind(this)} 
+        inputValue={this.state.inputValue} 
+        handleOnchange={this.handleOnchange.bind(this)}/>
       <div className='logHandling'>
         <div>
           {this.state.log}

@@ -6,12 +6,19 @@
 .container {
   padding: 20px;
   max-width: 800px;
+  width: 800px;
   margin: 0 auto;
 }
 
 .header {
   text-align: center;
   font-weight: bold;
+  position: fixed;
+  top: 0;
+  padding: 10px;
+  width: inherit;
+  z-index: 99;
+  background-color: #00a1ff;
 }
 
 ul {
@@ -76,18 +83,20 @@ ul {
   border-color: #1d9e0c;
 }
 
+.messages-list {
+  margin-bottom: 10px;
+}
+
 .textarea {
-  width: 800px;
+  width: inherit;
   z-index: 99;
-  margin-top: 15px;
+  position: fixed;
+  bottom: 0px;
 }
 
 .textarea input {
-  position: fixed;
-  bottom: 0px;
   width: inherit;
   min-height: 35px;
-  z-index: 99;
 }
 
 .dummy-message-end {
